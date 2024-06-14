@@ -16,8 +16,7 @@ interface ProductForm{
   author:string,
   price: number,
 }
-const [products, setProducts] = useState<ProductForm[]> ([]);
-
+//const [products, setProducts] = useState<ProductForm> ();
 const getAllProducts=()=>{
   const dbRef=ref(dbRealTime,'products');
   onValue(dbRef,(snapshot)=>{
@@ -28,7 +27,7 @@ const getAllProducts=()=>{
       const value={...data[key],id:key}
       listProducts.push(value);
     })
-    setProducts(listProducts);
+    
   })
 }
 export const ProductScreen = ({navigation}:Props) => {

@@ -112,3 +112,6 @@ export const NewProduct = ({navigation}:Props) => {
     </View>
   )
 }
+
+//vista la clase del 10 de junio has la 1:22:54
+//falta la actualizacion de los campos - agregar imagenes-mejorar diseño
