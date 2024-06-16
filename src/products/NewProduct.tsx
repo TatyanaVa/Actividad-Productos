@@ -10,10 +10,6 @@ import { push, ref, set } from 'firebase/database';
 
 interface Props extends StackScreenProps<RootStackParamList,"NewProductScreen">{};
 
-/*interface Props{
-  showModalMessage: boolean;
-  setShowModalMessage: Function;
-}*/
 interface ProductForm{
   id:string;
   name:string,
@@ -30,7 +26,7 @@ export const NewProduct = ({navigation}:Props) => {
   })
 
   const handlerSetValues=(key:string,value:string)=>{
-    setFormProduct({...formProduct,[key]:value})
+    setFormProduct({...formProduct, [key]: key === 'price' ? Number(value) : value})
   }
   const handlerSaveProduct= async()=>{
     if(!formProduct.id || !formProduct.name|| !formProduct.author || !formProduct.price){
@@ -59,29 +55,26 @@ export const NewProduct = ({navigation}:Props) => {
   return (
     <View style={styles.rootHome}>
         
-        <Appbar.Header>
+        <Appbar.Header style={styles.header}>
             <Appbar.Content title="Registrar Libros" />
             <Appbar.BackAction onPress={() => navigation.navigate("HomeScreen")} />
-            <Appbar.Action size={24} icon="cart" onPress={() =>navigation.navigate("HomeScreen")} />
-            <Appbar.Action size={24} icon="book-open-variant" />
+            <Appbar.Action size={24} icon="home-outline" onPress={() =>navigation.navigate("HomeScreen")} />
         </Appbar.Header>
         <View >
-        <TextInput
+        <TextInput style={styles.inputs}
             mode='outlined'
             label="ID"
             placeholder='Escribe el ID producto'
             onChangeText={(value)=>handlerSetValues('id',value)}
-            style={styles.inputs}
-            //onChangeText={()=>}
+            
             />
             <Divider/>
-            <TextInput
+            <TextInput style={styles.inputs}
             mode='outlined'
             label="nombre"
             placeholder='Escribe el nombre del producto'
             onChangeText={(value)=>handlerSetValues('name',value)}
-            style={styles.inputs}
-            //onChangeText={()=>}
+            
             />
             <Divider/>
             <TextInput
@@ -90,16 +83,15 @@ export const NewProduct = ({navigation}:Props) => {
             placeholder='Escribe el autor del producto'
             onChangeText={(value)=>handlerSetValues('author',value)}
             style={styles.inputs}
-            //onChangeText={()=>}
             />
             <Divider/>
             <TextInput
             mode='outlined'
             label="precio"
             placeholder='Escribe el precio del producto'
+            keyboardType='numeric'
             onChangeText={(value)=>handlerSetValues('price',value)}
             style={styles.inputs}
-            //onChangeText={()=>}
             />
         </View>
         
